@@ -8,6 +8,6 @@ public interface IAuthService
 {
     Task<ResponseDTO<string>> LoginAsync(LoginModel loginModel);
     Task<ResponseDTO<string>> RegisterAsync(RegisterModel registerModel);
-    Task<ResponseDTO<string>> GenerateJwtToken(AppUser user, IEnumerable<string> roles);
+    ResponseDTO<string> GenerateJwtToken(AppUser user, IEnumerable<string> roles);
 }
 
