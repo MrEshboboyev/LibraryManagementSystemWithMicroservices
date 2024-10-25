@@ -1,4 +1,5 @@
 using LibraryMS.Services.Auth.Infrastructure.Configurations;
+using LibraryMS.Services.Auth.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,5 +31,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+await app.SeedDatabaseAsync();
 app.Run();

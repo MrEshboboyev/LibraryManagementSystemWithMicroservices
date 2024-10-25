@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibraryMS.Services.Auth.Infrastructure.Data;
 
-internal sealed class AuthDbContext(DbContextOptions<AuthDbContext> options) 
+public class AuthDbContext(DbContextOptions<AuthDbContext> options) 
     : IdentityDbContext<AppUser>(options)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
