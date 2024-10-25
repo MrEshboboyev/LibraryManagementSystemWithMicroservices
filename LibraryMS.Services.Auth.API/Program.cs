@@ -1,8 +1,21 @@
+using LibraryMS.Services.Auth.Infrastructure.Configurations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// configure database
+builder.Services.AddDatabaseConfiguration(builder.Configuration);
+
+// configure identity
+builder.Services.AddIdentityConfiguration();
+
+// configure lifetime for services
+builder.Services.AddApplicationServices();
+
+// configure swagger for JWT
+builder.Services.AddSwaggerConfiguration();
 
 var app = builder.Build();
 

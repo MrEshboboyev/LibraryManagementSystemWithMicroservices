@@ -14,13 +14,12 @@ namespace LibraryMS.Services.Auth.Infrastructure.Implementations;
 
 public class AuthService(UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
-        IConfiguration config
+        IConfiguration configuration
         /*IUnitOfWork unitOfWork*/) : IAuthService
 {
     // inject Identity Managers
     private readonly UserManager<AppUser> _userManager = userManager;
     private readonly SignInManager<AppUser> _signInManager = signInManager;
-    private readonly IConfiguration _config = config;
     //private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private const int _expirationTokenHours = 12;
 
@@ -31,9 +30,9 @@ public class AuthService(UserManager<AppUser> userManager,
             // create token handler instance
             var tokenHandler = new JwtSecurityTokenHandler();
 
-            var key = Encoding.ASCII.GetBytes(_config["JwtSettings:Key"]);
-            var issuer = _config["JwtSettings:Issuer"];
-            var audience = _config["JwtSettings:Audience"];
+            var key = Encoding.ASCII.GetBytes(configuration["JwtSettings:Key"] ?? "defaultKeyForJWT");
+            var issuer = configuration["JwtSettings:Issuer"];
+            var audience = configuration["JwtSettings:Audience"];
 
             var claimList = new List<Claim>
                 {
@@ -46,7 +45,8 @@ public class AuthService(UserManager<AppUser> userManager,
             claimList.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             // signing credentials
-            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(key), 
+                SecurityAlgorithms.HmacSha256Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
