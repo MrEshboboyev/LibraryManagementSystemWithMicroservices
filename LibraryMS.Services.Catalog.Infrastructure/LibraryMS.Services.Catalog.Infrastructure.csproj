@@ -15,6 +15,7 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\LibraryMS.Services.Catalog.Application\LibraryMS.Services.Catalog.Application.csproj" />
 	  <ProjectReference Include="..\LibraryMS.Services.Catalog.Domain\LibraryMS.Services.Catalog.Domain.csproj" />
 	</ItemGroup>
 </Project>
