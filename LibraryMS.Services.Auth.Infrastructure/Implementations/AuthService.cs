@@ -27,8 +27,7 @@ public class AuthService(UserManager<AppUser> userManager,
     public async Task<LoginResponseDTO> LoginAsync(LoginRequestDTO loginRequestDTO)
     {
         // Fetching user from the database
-        var userFromDb = await _userManager.FindByNameAsync(loginRequestDTO.UserName)
-            ?? throw new Exception("User not found!");
+        var userFromDb = await _userManager.FindByNameAsync(loginRequestDTO.UserName);
 
         bool isValid = await _userManager.CheckPasswordAsync(userFromDb, loginRequestDTO.Password);
 

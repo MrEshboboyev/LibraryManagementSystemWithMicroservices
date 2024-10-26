@@ -1,3 +1,4 @@
+using LibraryMS.Services.Auth.Application.Common.Models;
 using LibraryMS.Services.Auth.Application.Mappings;
 using LibraryMS.Services.Auth.Infrastructure.Configurations;
 using LibraryMS.Services.Auth.Infrastructure.Services;
@@ -11,6 +12,9 @@ builder.Services.AddEndpointsApiExplorer();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "defaultPostgresConnection";
 builder.Services.AddDatabaseConfiguration(connectionString);
+
+// add JwtOptions configuring
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 
 // configure identity
 builder.Services.AddIdentityConfiguration();
