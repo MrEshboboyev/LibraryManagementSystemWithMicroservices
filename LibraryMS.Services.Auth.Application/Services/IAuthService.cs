@@ -1,13 +1,10 @@
-﻿using LibraryMS.Services.Auth.Application.Common.Models;
-using LibraryMS.Services.Auth.Application.DTOs;
-using LibraryMS.Services.Auth.Domain.Entities;
+﻿using LibraryMS.Services.Auth.Application.DTOs;
 
 namespace LibraryMS.Services.Auth.Application.Services;
 
 public interface IAuthService
 {
-    Task<ResponseDTO<string>> LoginAsync(LoginModel loginModel);
-    Task<ResponseDTO<string>> RegisterAsync(RegisterModel registerModel);
-    ResponseDTO<string> GenerateJwtToken(AppUser user, IEnumerable<string> roles);
+    Task<string> RegisterAsync(RegistrationRequestDTO registrationRequestDTO);
+    Task<LoginResponseDTO> LoginAsync(LoginRequestDTO loginRequestDTO);
+    Task<bool> AssignRoleAsync(string email);
 }
-

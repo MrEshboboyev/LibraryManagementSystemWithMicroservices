@@ -13,6 +13,7 @@ public static class ServiceConfig
         // adding lifetimes
         services.AddScoped<IDbInitializer, DbInitializer>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
         //services.AddScoped<IUnitOfWork, UnitOfWork>();
         //services.AddScoped<IUserProfileService, UserProfileService>();
         //services.AddScoped<INotificationService, NotificationService>();

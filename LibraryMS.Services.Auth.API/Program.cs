@@ -1,3 +1,4 @@
+using LibraryMS.Services.Auth.Application.Mappings;
 using LibraryMS.Services.Auth.Infrastructure.Configurations;
 using LibraryMS.Services.Auth.Infrastructure.Services;
 
@@ -7,7 +8,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 // configure database
-builder.Services.AddDatabaseConfiguration(builder.Configuration);
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? "defaultPostgresConnection";
+builder.Services.AddDatabaseConfiguration(connectionString);
 
 // configure identity
 builder.Services.AddIdentityConfiguration();
@@ -17,6 +20,9 @@ builder.Services.AddApplicationServices();
 
 // configure swagger for JWT
 builder.Services.AddSwaggerConfiguration();
+
+// configure automapper
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 

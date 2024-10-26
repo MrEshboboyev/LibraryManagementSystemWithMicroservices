@@ -14,6 +14,7 @@ public static class IdentityConfig
             options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // User will be locked out for 5 minutes
             options.Lockout.MaxFailedAccessAttempts = 5; // Lockout occurs after 5 failed attempts
             options.Lockout.AllowedForNewUsers = true;   // Lockout enabled for new users
+            options.User.RequireUniqueEmail = true;
         })
         .AddEntityFrameworkStores<AuthDbContext>()
         .AddDefaultTokenProviders();
