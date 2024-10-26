@@ -8,5 +8,5 @@ public class MembershipType
     public decimal MembershipFee { get; set; }
 
     // Navigation to members
-    public ICollection<Member> Members { get; set; } = new List<Member>();
+    public ICollection<Member> Members { get; set; } = [];
 }
