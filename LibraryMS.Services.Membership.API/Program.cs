@@ -1,11 +1,25 @@
+using LibraryMS.Services.Membership.Application.Mappings;
+using LibraryMS.Services.Membership.Infrastructure.Configurations;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// configure database
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? "defaultPostgresConnection";
+builder.Services.AddDatabaseConfiguration(connectionString);
+
+// configure lifetime for services
+builder.Services.AddApplicationServices();
+
+// configure swagger for JWT
+builder.Services.AddSwaggerConfiguration();
+
+// configure automapper
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 
 var app = builder.Build();
 
