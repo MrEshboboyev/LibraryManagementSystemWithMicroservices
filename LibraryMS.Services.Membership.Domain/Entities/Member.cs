@@ -7,12 +7,15 @@ public class Member
     // Link to the authentication user
     public required string AppUserId { get; set; }
 
-    public required MembershipType MembershipType { get; set; } // Reference to MembershipType
+    // Foreign key for MembershipType
+    public Guid MembershipTypeId { get; set; } // FK reference
+    
     public DateTime JoinDate { get; set; }
     public DateTime? ExpirationDate { get; set; }
 
     public bool IsActive { get; set; }
 
+    public required MembershipType MembershipType { get; set; } // Navigation property
     // Navigation to loan history
     public ICollection<LoanHistory> LoanHistories { get; set; } = [];
 }

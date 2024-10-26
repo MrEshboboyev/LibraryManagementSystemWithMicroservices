@@ -1,6 +1,4 @@
-﻿using LibraryMS.Services.Membership.Domain.Entities;
-
-namespace LibraryMS.Services.Membership.Application.DTOs;
+﻿namespace LibraryMS.Services.Membership.Application.DTOs;
 
 public class MembershipTypeDTO
 {

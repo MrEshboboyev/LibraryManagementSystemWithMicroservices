@@ -5,10 +5,10 @@ namespace LibraryMS.Services.Membership.Application.Services;
 public interface IMemberService
 {
     // Retrieves all members
-    IEnumerable<MemberDTO> GetAllMembers();
+    Task<IEnumerable<MemberDTO>> GetAllMembersAsync();
 
     // Retrieves a member by their unique ID
-    MemberDTO? GetMemberById(Guid memberId);
+    Task<MemberDTO?> GetMemberByIdAsync(Guid memberId);
 
     // Adds a new member to the system
     Task<MemberDTO> AddMemberAsync(MemberDTO memberDTO);
@@ -21,7 +21,4 @@ public interface IMemberService
 
     // Checks if a member is active based on their ID
     Task<bool> IsMemberActiveAsync(Guid memberId);
-
-    // Retrieves a list of loan histories for a given member
-    Task<IEnumerable<LoanHistoryDTO>> GetLoanHistoriesForMemberAsync(Guid memberId);
 }
