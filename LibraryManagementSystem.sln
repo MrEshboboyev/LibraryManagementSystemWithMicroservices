@@ -21,6 +21,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryMS.Services.Auth.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryMS.Services.Auth.API", "LibraryMS.Services.Auth.API\LibraryMS.Services.Auth.API.csproj", "{BDECC4D2-6B15-411C-A42B-8696D2E69B5C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Membership", "Membership", "{2B15C837-83A8-4B78-A007-26AA16408847}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryMS.Services.Membership.Domain", "LibraryMS.Services.Membership.Domain\LibraryMS.Services.Membership.Domain.csproj", "{FA2E366E-7CF6-41A8-8C6C-4972A2B200D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryMS.Services.Membership.Application", "LibraryMS.Services.Membership.Application\LibraryMS.Services.Membership.Application.csproj", "{1FB64020-EE05-4918-8BE2-066F2CBAA54B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryMS.Services.Membership.Infrastructure", "LibraryMS.Services.Membership.Infrastructure\LibraryMS.Services.Membership.Infrastructure.csproj", "{D3DC299F-EC94-4054-841A-F311F199D0AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryMS.Services.Membership.API", "LibraryMS.Services.Membership.API\LibraryMS.Services.Membership.API.csproj", "{B0170AA1-1399-4AB0-8C82-30F4AB4EC1B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +53,22 @@ Global
 		{BDECC4D2-6B15-411C-A42B-8696D2E69B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDECC4D2-6B15-411C-A42B-8696D2E69B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDECC4D2-6B15-411C-A42B-8696D2E69B5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA2E366E-7CF6-41A8-8C6C-4972A2B200D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA2E366E-7CF6-41A8-8C6C-4972A2B200D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA2E366E-7CF6-41A8-8C6C-4972A2B200D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA2E366E-7CF6-41A8-8C6C-4972A2B200D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FB64020-EE05-4918-8BE2-066F2CBAA54B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FB64020-EE05-4918-8BE2-066F2CBAA54B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FB64020-EE05-4918-8BE2-066F2CBAA54B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FB64020-EE05-4918-8BE2-066F2CBAA54B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3DC299F-EC94-4054-841A-F311F199D0AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3DC299F-EC94-4054-841A-F311F199D0AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3DC299F-EC94-4054-841A-F311F199D0AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3DC299F-EC94-4054-841A-F311F199D0AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0170AA1-1399-4AB0-8C82-30F4AB4EC1B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0170AA1-1399-4AB0-8C82-30F4AB4EC1B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0170AA1-1399-4AB0-8C82-30F4AB4EC1B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0170AA1-1399-4AB0-8C82-30F4AB4EC1B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,5 +79,10 @@ Global
 		{D2784F35-5239-49FD-B0CF-3C9F36A3CFF8} = {75C2EE71-11F7-49C1-9A7F-A25B3FA3BFFB}
 		{870D3CD7-15A1-450B-B564-3C730BF5A914} = {75C2EE71-11F7-49C1-9A7F-A25B3FA3BFFB}
 		{BDECC4D2-6B15-411C-A42B-8696D2E69B5C} = {75C2EE71-11F7-49C1-9A7F-A25B3FA3BFFB}
+		{2B15C837-83A8-4B78-A007-26AA16408847} = {D6CC0A79-AE5C-4E16-8FE0-2B0E64C9B473}
+		{FA2E366E-7CF6-41A8-8C6C-4972A2B200D1} = {2B15C837-83A8-4B78-A007-26AA16408847}
+		{1FB64020-EE05-4918-8BE2-066F2CBAA54B} = {2B15C837-83A8-4B78-A007-26AA16408847}
+		{D3DC299F-EC94-4054-841A-F311F199D0AD} = {2B15C837-83A8-4B78-A007-26AA16408847}
+		{B0170AA1-1399-4AB0-8C82-30F4AB4EC1B0} = {2B15C837-83A8-4B78-A007-26AA16408847}
 	EndGlobalSection
 EndGlobal
