@@ -1,15 +1,30 @@
+using LibraryMS.Web.Services.IServices;
+using LibraryMS.Web.Services;
+using LibraryMS.Web.Utility;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// add HttpClient, HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
+
+// service lifetime added
+builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddScoped<ITokenProvider, TokenProvider>();
+
+// URLs initialized
+SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];
+SD.CatalogAPIBase = builder.Configuration["ServiceUrls:CatalogAPI"];
+SD.LoanAPIBase = builder.Configuration["ServiceUrls:LoanAPI"];
+SD.MembershipAPIBase = builder.Configuration["ServiceUrls:MembershipAPI"];
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
