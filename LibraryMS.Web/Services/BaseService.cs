@@ -40,7 +40,7 @@ public class BaseService(IHttpClientFactory httpClientFactory,
             {
                 message.Content = new StringContent(JsonConvert.SerializeObject(requestDTO.Data), 
                     Encoding.UTF8,
-                    mediaType: "application/json");
+                    "application/json");
             }
 
             HttpResponseMessage? apiResponse = null;

@@ -1,8 +1,12 @@
-﻿namespace LibraryMS.Web.DTOs;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LibraryMS.Web.DTOs;
 
 public class LoginRequestDTO
 {
-    public required string UserName { get; set; }
-    public required string Password { get; set; }
+    [Required]
+    public string UserName { get; set; }
+    [Required]
+    public string Password { get; set; }
 }
 
