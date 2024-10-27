@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryMS.Services.Catalog.API.Controllers;
 
-[Route("api/authors")]
+[Route("api/publishers")]
 [ApiController]
-public class AuthorController(IAuthorService authorService) : ControllerBase
+public class PublisherAPIController(IPublisherService publisherService) : ControllerBase
 {
-    private readonly IAuthorService _authorService = authorService;
+    private readonly IPublisherService _publisherService = publisherService;
     private ResponseDTO _response = new();
 
     // POST
-    // /api/authors
-    // Add a new author
+    // /api/publishers
+    // Create a new publisher
     [HttpPost]
-    public async Task<ResponseDTO> Post([FromBody] AuthorDTO authorDTO)
+    public async Task<ResponseDTO> Post([FromBody] PublisherDTO publisherDTO)
     {
         try
         {
-            var result = await _authorService.AddAuthorAsync(authorDTO);
+            var result = await _publisherService.AddPublisherAsync(publisherDTO);
             _response.Result = result;
         }
         catch (Exception ex)
@@ -32,14 +32,14 @@ public class AuthorController(IAuthorService authorService) : ControllerBase
     }
 
     // GET
-    // /api/authors
-    // Get all authors (with pagination support)
+    // /api/publishers
+    // Get all publishers
     [HttpGet]
     public async Task<ResponseDTO> Get()
     {
         try
         {
-            var result = await _authorService.GetAllAuthorsAsync();
+            var result = await _publisherService.GetAllPublishersAsync();
             _response.Result = result;
         }
         catch (Exception ex)
@@ -52,14 +52,14 @@ public class AuthorController(IAuthorService authorService) : ControllerBase
     }
 
     // GET
-    // /api/authors/{id}
-    // Get details of a specific author by ID
+    // /api/publishers/{id}
+    // Get a specific publisher by ID
     [HttpGet("{id:guid}")]
     public async Task<ResponseDTO> Get(Guid id)
     {
         try
         {
-            var result = await _authorService.GetAuthorByIdAsync(id);
+            var result = await _publisherService.GetPublisherByIdAsync(id);
             _response.Result = result;
         }
         catch (Exception ex)
@@ -72,14 +72,34 @@ public class AuthorController(IAuthorService authorService) : ControllerBase
     }
 
     // PUT
-    // /api/authors
-    // Update an author’s information
+    // /api/publishers
+    // Update a publisher
     [HttpPut]
-    public async Task<ResponseDTO> Put([FromBody] AuthorDTO authorDTO)
+    public async Task<ResponseDTO> Put([FromBody] PublisherDTO publisherDTO)
     {
         try
         {
-            var result = await _authorService.UpdateAuthorAsync(authorDTO);
+            var result = await _publisherService.UpdatePublisherAsync(publisherDTO);
+            _response.Result = result;
+        }
+        catch (Exception ex)
+        {
+            _response.IsSuccess = false;
+            _response.Message = ex.Message;
+        }
+
+        return _response;
+    }
+
+    // DELETE
+    // /api/publishers/{id}
+    // Delete a publisher
+    [HttpDelete("{id:guid}")]
+    public async Task<ResponseDTO> Delete(Guid id)
+    {
+        try
+        {
+            var result = await _publisherService.DeletePublisherAsync(id);
             _response.Result = result;
         }
         catch (Exception ex)

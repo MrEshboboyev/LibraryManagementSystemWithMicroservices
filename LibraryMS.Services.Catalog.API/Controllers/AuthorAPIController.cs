@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryMS.Services.Catalog.API.Controllers;
 
-[Route("api/categories")]
+[Route("api/authors")]
 [ApiController]
-public class CategoryController(ICategoryService categoryService) : ControllerBase
+public class AuthorAPIController(IAuthorService authorService) : ControllerBase
 {
-    private readonly ICategoryService _categoryService = categoryService;
+    private readonly IAuthorService _authorService = authorService;
     private ResponseDTO _response = new();
 
     // POST
-    // /api/categories
-    // Add a new category
+    // /api/authors
+    // Add a new author
     [HttpPost]
-    public async Task<ResponseDTO> Post([FromBody] CategoryDTO categoryDTO)
+    public async Task<ResponseDTO> Post([FromBody] AuthorDTO authorDTO)
     {
         try
         {
-            var result = await _categoryService.AddCategoryAsync(categoryDTO);
+            var result = await _authorService.AddAuthorAsync(authorDTO);
             _response.Result = result;
         }
         catch (Exception ex)
@@ -32,14 +32,14 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
     }
 
     // GET
-    // /api/categories
-    // Get all categories
+    // /api/authors
+    // Get all authors (with pagination support)
     [HttpGet]
     public async Task<ResponseDTO> Get()
     {
         try
         {
-            var result = await _categoryService.GetAllCategoriesAsync();
+            var result = await _authorService.GetAllAuthorsAsync();
             _response.Result = result;
         }
         catch (Exception ex)
@@ -52,14 +52,14 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
     }
 
     // GET
-    // /api/categories/{id}
-    // Get a specific category by ID
+    // /api/authors/{id}
+    // Get details of a specific author by ID
     [HttpGet("{id:guid}")]
     public async Task<ResponseDTO> Get(Guid id)
     {
         try
         {
-            var result = await _categoryService.GetCategoryByIdAsync(id);
+            var result = await _authorService.GetAuthorByIdAsync(id);
             _response.Result = result;
         }
         catch (Exception ex)
@@ -72,34 +72,14 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
     }
 
     // PUT
-    // /api/categories
-    // Update a category’s information
+    // /api/authors
+    // Update an author’s information
     [HttpPut]
-    public async Task<ResponseDTO> Put([FromBody] CategoryDTO categoryDTO)
+    public async Task<ResponseDTO> Put([FromBody] AuthorDTO authorDTO)
     {
         try
         {
-            var result = await _categoryService.UpdateCategoryAsync(categoryDTO);
-            _response.Result = result;
-        }
-        catch (Exception ex)
-        {
-            _response.IsSuccess = false;
-            _response.Message = ex.Message;
-        }
-
-        return _response;
-    }
-
-    // DELETE
-    // /api/categories/{id}
-    // Delete a category by ID
-    [HttpDelete("{id:guid}")]
-    public async Task<ResponseDTO> Delete(Guid id)
-    {
-        try
-        {
-            var result = await _categoryService.DeleteCategoryAsync(id);
+            var result = await _authorService.UpdateAuthorAsync(authorDTO);
             _response.Result = result;
         }
         catch (Exception ex)

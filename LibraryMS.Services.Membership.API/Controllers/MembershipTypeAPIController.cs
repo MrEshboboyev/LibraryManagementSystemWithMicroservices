@@ -1,25 +1,25 @@
-﻿using LibraryMS.Services.Catalog.Application.DTOs;
-using LibraryMS.Services.Catalog.Application.Services;
+﻿using LibraryMS.Services.Membership.Application.DTOs;
+using LibraryMS.Services.Membership.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibraryMS.Services.Catalog.API.Controllers;
+namespace LibraryMS.Services.Membership.API.Controllers;
 
-[Route("api/publishers")]
+[Route("api/membership-types")]
 [ApiController]
-public class PublisherController(IPublisherService publisherService) : ControllerBase
+public class MembershipTypeAPIController(IMembershipTypeService membershipTypeService) : ControllerBase
 {
-    private readonly IPublisherService _publisherService = publisherService;
+    private readonly IMembershipTypeService _membershipTypeService = membershipTypeService;
     private ResponseDTO _response = new();
 
     // POST
-    // /api/publishers
-    // Create a new publisher
+    // /api/membership-types
+    // Create a new membership type
     [HttpPost]
-    public async Task<ResponseDTO> Post([FromBody] PublisherDTO publisherDTO)
+    public async Task<ResponseDTO> Post([FromBody] MembershipTypeDTO membershipTypeDTO)
     {
         try
         {
-            var result = await _publisherService.AddPublisherAsync(publisherDTO);
+            var result = await _membershipTypeService.AddMembershipTypeAsync(membershipTypeDTO);
             _response.Result = result;
         }
         catch (Exception ex)
@@ -32,14 +32,14 @@ public class PublisherController(IPublisherService publisherService) : Controlle
     }
 
     // GET
-    // /api/publishers
-    // Get all publishers
+    // /api/membership-types
+    // Get all membership types
     [HttpGet]
     public async Task<ResponseDTO> Get()
     {
         try
         {
-            var result = await _publisherService.GetAllPublishersAsync();
+            var result = await _membershipTypeService.GetAllMembershipTypesAsync();
             _response.Result = result;
         }
         catch (Exception ex)
@@ -52,14 +52,14 @@ public class PublisherController(IPublisherService publisherService) : Controlle
     }
 
     // GET
-    // /api/publishers/{id}
-    // Get a specific publisher by ID
+    // /api/membership-types/{id}
+    // Get a specific membership type by ID
     [HttpGet("{id:guid}")]
     public async Task<ResponseDTO> Get(Guid id)
     {
         try
         {
-            var result = await _publisherService.GetPublisherByIdAsync(id);
+            var result = await _membershipTypeService.GetMembershipTypeByIdAsync(id);
             _response.Result = result;
         }
         catch (Exception ex)
@@ -72,14 +72,14 @@ public class PublisherController(IPublisherService publisherService) : Controlle
     }
 
     // PUT
-    // /api/publishers
-    // Update a publisher
+    // /api/membership-types
+    // Update a membership type
     [HttpPut]
-    public async Task<ResponseDTO> Put([FromBody] PublisherDTO publisherDTO)
+    public async Task<ResponseDTO> Put([FromBody] MembershipTypeDTO membershipTypeDTO)
     {
         try
         {
-            var result = await _publisherService.UpdatePublisherAsync(publisherDTO);
+            var result = await _membershipTypeService.UpdateMembershipTypeAsync(membershipTypeDTO);
             _response.Result = result;
         }
         catch (Exception ex)
@@ -92,14 +92,14 @@ public class PublisherController(IPublisherService publisherService) : Controlle
     }
 
     // DELETE
-    // /api/publishers/{id}
-    // Delete a publisher
+    // /api/membership-types/{id}
+    // Delete a membership type
     [HttpDelete("{id:guid}")]
     public async Task<ResponseDTO> Delete(Guid id)
     {
         try
         {
-            var result = await _publisherService.DeletePublisherAsync(id);
+            var result = await _membershipTypeService.DeleteMembershipTypeAsync(id);
             _response.Result = result;
         }
         catch (Exception ex)

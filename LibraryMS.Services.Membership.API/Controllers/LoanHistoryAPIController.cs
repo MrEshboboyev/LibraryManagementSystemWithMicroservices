@@ -4,27 +4,25 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryMS.Services.Membership.API.Controllers;
 
-[Route("api/members")]
+[Route("api/loans")]
 [ApiController]
-public class MemberController(IMemberService memberService,
-    ILoanHistoryService loanHistoryService) : ControllerBase
+public class LoanHistoryAPIController(ILoanHistoryService loanHistoryService) : ControllerBase
 {
-    private readonly IMemberService _memberService = memberService;
     private readonly ILoanHistoryService _loanHistoryService = loanHistoryService;
     private ResponseDTO _response = new();
 
     // POST
-    // /api/members
-    // Register a new member
+    // /api/loans
+    // Create a new membership type
     [HttpPost]
-    public async Task<ResponseDTO> Post([FromBody] MemberDTO memberDTO)
+    public async Task<ResponseDTO> Post([FromBody] LoanHistoryDTO loanHistoryDTO)
     {
         try
         {
-            var result = await _memberService.AddMemberAsync(memberDTO);
+            var result = await _loanHistoryService.AddLoanHistoryAsync(loanHistoryDTO);
             _response.Result = result;
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             _response.IsSuccess = false;
             _response.Message = ex.Message;
@@ -34,14 +32,14 @@ public class MemberController(IMemberService memberService,
     }
 
     // GET
-    // /api/members
-    // Get all members (with pagination, filtering options)
+    // /api/loans
+    // Get all loan histories
     [HttpGet]
     public async Task<ResponseDTO> Get()
     {
         try
         {
-            var result = await _memberService.GetAllMembersAsync();
+            var result = await _loanHistoryService.GetAllLoanHistoriesAsync();
             _response.Result = result;
         }
         catch (Exception ex)
@@ -54,90 +52,10 @@ public class MemberController(IMemberService memberService,
     }
 
     // GET
-    // /api/members/{id}
-    // Get a specific member by ID
+    // /api/loans/{id}
+    // Get a specific loan history by ID
     [HttpGet("{id:guid}")]
     public async Task<ResponseDTO> Get(Guid id)
-    {
-        try
-        {
-            var result = await _memberService.GetMemberByIdAsync(id);
-            _response.Result = result;
-        }
-        catch (Exception ex)
-        {
-            _response.IsSuccess = false;
-            _response.Message = ex.Message;
-        }
-
-        return _response;
-    }
-
-    // PUT
-    // /api/members/{id}
-    // Update member details
-    [HttpPut]
-    public async Task<ResponseDTO> Put([FromBody] MemberDTO memberDTO)
-    {
-        try
-        {
-            var result = await _memberService.UpdateMemberAsync(memberDTO);
-            _response.Result = result;
-        }
-        catch (Exception ex)
-        {
-            _response.IsSuccess = false;
-            _response.Message = ex.Message;
-        }
-
-        return _response;
-    }
-
-    // DELETE
-    // /api/members/{id}
-    // Delete a member
-    [HttpDelete("{id:guid}")]
-    public async Task<ResponseDTO> Delete(Guid id)
-    {
-        try
-        {
-            var result = await _memberService.DeleteMemberAsync(id);
-            _response.Result = result;
-        }
-        catch (Exception ex)
-        {
-            _response.IsSuccess = false;
-            _response.Message = ex.Message;
-        }
-
-        return _response;
-    }
-
-    // GET
-    // /api/members/{id}/status
-    // Check if a member is active
-    [HttpGet("{id:guid}/status")]
-    public async Task<ResponseDTO> GetStatus(Guid id)
-    {
-        try
-        {
-            var result = await _memberService.IsMemberActiveAsync(id);
-            _response.Result = result;
-        }
-        catch (Exception ex)
-        {
-            _response.IsSuccess = false;
-            _response.Message = ex.Message;
-        }
-
-        return _response;
-    }
-
-    // GET
-    // /api/members/{id}/loans
-    // Get a member’s loan history
-    [HttpGet("{id:guid}/loans")]
-    public async Task<ResponseDTO> GetLoans(Guid id)
     {
         try
         {
@@ -152,5 +70,84 @@ public class MemberController(IMemberService memberService,
 
         return _response;
     }
-}
 
+    // PUT
+    // /api/loans
+    // Update a loan history record (e.g., mark as returned)
+    [HttpPut]
+    public async Task<ResponseDTO> Put([FromBody] LoanHistoryDTO loanHistoryDTO)
+    {
+        try
+        {
+            var result = await _loanHistoryService.UpdateLoanHistoryAsync(loanHistoryDTO);
+            _response.Result = result;
+        }
+        catch (Exception ex)
+        {
+            _response.IsSuccess = false;
+            _response.Message = ex.Message;
+        }
+
+        return _response;
+    }
+
+    // DELETE
+    // /api/loans/{id}
+    // Delete a loan history record
+    [HttpDelete("{id:guid}")]
+    public async Task<ResponseDTO> Delete(Guid id)
+    {
+        try
+        {
+            var result = await _loanHistoryService.DeleteLoanHistoryAsync(id);
+            _response.Result = result;
+        }
+        catch (Exception ex)
+        {
+            _response.IsSuccess = false;
+            _response.Message = ex.Message;
+        }
+
+        return _response;
+    }
+
+    // GET
+    // /api/loans/member/{memberId}
+    // Get loan histories by member ID
+    [HttpGet("member/{memberId:guid}")]
+    public async Task<ResponseDTO> GetLoans(Guid memberId)
+    {
+        try
+        {
+            var result = await _loanHistoryService.GetLoanHistoriesByMemberIdAsync(memberId);
+            _response.Result = result;
+        }
+        catch (Exception ex)
+        {
+            _response.IsSuccess = false;
+            _response.Message = ex.Message;
+        }
+
+        return _response;
+    }
+
+    // GET
+    // /api/loans/check
+    // Check if a book is currently loaned to a member
+    [HttpGet("check")]
+    public async Task<ResponseDTO> Check(Guid memberId, Guid bookId)
+    {
+        try
+        {
+            var result = await _loanHistoryService.IsBookLoanedToMemberAsync(bookId, memberId);
+            _response.Result = result;
+        }
+        catch (Exception ex)
+        {
+            _response.IsSuccess = false;
+            _response.Message = ex.Message;
+        }
+
+        return _response;
+    }
+}

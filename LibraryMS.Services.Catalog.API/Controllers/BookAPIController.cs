@@ -6,7 +6,7 @@ namespace LibraryMS.Services.Catalog.API.Controllers;
 
 [Route("api/books")]
 [ApiController]
-public class BookController(IBookService bookService) : ControllerBase
+public class BookAPIController(IBookService bookService) : ControllerBase
 {
     private readonly IBookService _bookService = bookService;
     private ResponseDTO _response = new();
