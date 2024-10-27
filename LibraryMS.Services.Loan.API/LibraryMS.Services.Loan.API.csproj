@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\LibraryMS.Services.Loan.Application\LibraryMS.Services.Loan.Application.csproj" />
+    <ProjectReference Include="..\LibraryMS.Services.Loan.Infrastructure\LibraryMS.Services.Loan.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

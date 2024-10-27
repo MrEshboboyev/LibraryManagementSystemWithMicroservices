@@ -15,6 +15,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
   </ItemGroup>
 <ItemGroup>
+  <ProjectReference Include="..\LibraryMS.Services.Loan.Application\LibraryMS.Services.Loan.Application.csproj" />
   <ProjectReference Include="..\LibraryMS.Services.Loan.Domain\LibraryMS.Services.Loan.Domain.csproj" />
 </ItemGroup>
 </Project>

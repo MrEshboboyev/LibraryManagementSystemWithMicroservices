@@ -15,7 +15,7 @@ public class LoanDbContext(DbContextOptions<LoanDbContext> options) : DbContext(
         // Configure BookLoan - Fine relationship
         modelBuilder.Entity<BookLoan>()
             .HasOne(bl => bl.Fine)
-            .WithOne(f => f.Loan)
+            .WithOne(f => f.BookLoan)
             .HasForeignKey<Fine>(f => f.LoanId)
             .OnDelete(DeleteBehavior.Cascade); // Deletes Fine if BookLoan is deleted
 
