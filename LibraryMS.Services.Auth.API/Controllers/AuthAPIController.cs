@@ -87,6 +87,6 @@ public class AuthAPIController(IAuthService authService,
             return BadRequest("Failed to update profile");
         }
 
-        return Ok("Profile updated successfully");
+        return Ok(_response);
     }
 }

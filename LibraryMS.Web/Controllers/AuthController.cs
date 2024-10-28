@@ -76,6 +76,42 @@ public class AuthController(IAuthService authService, ITokenProvider tokenProvid
         return RedirectToAction("Index", "Home");
     }
 
+    #region Profile
+    [HttpGet]
+    public async Task<IActionResult> Profile()
+    {
+        var responseDTO = await _authService.GetProfileAsync();
+        if (responseDTO != null && responseDTO.IsSuccess)
+        {
+            UserProfileDTO? userProfileDTO = 
+                JsonConvert.DeserializeObject<UserProfileDTO>(Convert.ToString(responseDTO.Result));
+
+            return View(userProfileDTO);
+        }
+        else
+        {
+            TempData["error"] = responseDTO.Message;
+            return RedirectToAction("Index", "Home");
+        }
+    }
+    [HttpPost]
+    public async Task<IActionResult> Profile(UserProfileDTO obj)
+    {
+        ResponseDTO? result = await _authService.UpdateProfileAsync(obj);
+
+        if (result != null && result.IsSuccess)
+        {
+            TempData["success"] = "User Profile updated Successfully";
+            return RedirectToAction(nameof(Profile));
+        }
+        else
+        {
+            TempData["error"] = result?.Message ?? "An error occurred while updating the profile.";
+        }
+
+        return View(obj);
+    }
+    #endregion
     // Sign In User
     private async Task SignInUser(LoginResponseDTO model)
     {
