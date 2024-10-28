@@ -1,14 +1,20 @@
 ﻿using LibraryMS.Services.Auth.Application.DTOs;
 using LibraryMS.Services.Auth.Application.Services;
+using LibraryMS.Services.Auth.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LibraryMS.Services.Auth.API.Controllers;
 
 [Route("api/auth")]
 [ApiController]
-public class AuthAPIController(IAuthService authService) : ControllerBase
+public class AuthAPIController(IAuthService authService,
+    UserManager<AppUser> userManager) : ControllerBase
 {
     private readonly IAuthService _authService = authService;
+    private readonly UserManager<AppUser> _userManager = userManager;
     protected ResponseDTO _response = new();
 
     [HttpPost("register")]
@@ -38,5 +44,47 @@ public class AuthAPIController(IAuthService authService) : ControllerBase
         _response.Result = loginResponse;
 
         return Ok(_response);
+    }
+
+    [HttpGet("profile")]
+    public async Task<IActionResult> GetProfile()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId == null) return Unauthorized();
+
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null) return NotFound("User not found");
+
+        var profileDto = new UserProfileDTO
+        {
+            FullName = user.FullName,
+            Address = user.Address,
+            DateOfBirth = user.DateOfBirth,
+            Email = user.Email
+        };
+
+        return Ok(profileDto);
+    }
+
+    [HttpPut("profile")]
+    public async Task<IActionResult> UpdateProfile([FromBody] UserProfileDTO profileDto)
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId == null) return Unauthorized();
+
+        var user = await _userManager.FindByIdAsync(userId);
+        if (user == null) return NotFound("User not found");
+
+        user.FullName = profileDto.FullName;
+        user.Address = profileDto.Address;
+        user.DateOfBirth = profileDto.DateOfBirth;
+
+        var result = await _userManager.UpdateAsync(user);
+        if (!result.Succeeded)
+        {
+            return BadRequest("Failed to update profile");
+        }
+
+        return Ok("Profile updated successfully");
     }
 }

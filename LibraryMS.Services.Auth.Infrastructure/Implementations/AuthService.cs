@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Identity;
 namespace LibraryMS.Services.Auth.Infrastructure.Implementations;
 
 public class AuthService(UserManager<AppUser> userManager,
-        IJwtTokenGenerator jwtTokenGenerator) : IAuthService
+        IJwtTokenGenerator jwtTokenGenerator,
+        SignInManager<AppUser> signInManager) : IAuthService
 {
     private readonly UserManager<AppUser> _userManager = userManager;
+    private readonly SignInManager<AppUser> _signInManager = signInManager;
     private readonly IJwtTokenGenerator _jwtTokenGenerator = jwtTokenGenerator;
 
     public async Task<bool> AssignRoleAsync(string email)
@@ -31,7 +33,12 @@ public class AuthService(UserManager<AppUser> userManager,
 
         bool isValid = await _userManager.CheckPasswordAsync(userFromDb, loginRequestDTO.Password);
 
-        if (userFromDb == null || isValid == false)
+        var signInResult = await _signInManager.PasswordSignInAsync(userFromDb,
+            loginRequestDTO.Password,
+            isPersistent: false,
+            lockoutOnFailure: true);
+
+        if (userFromDb == null || !signInResult.Succeeded)
         {
             return new LoginResponseDTO() { User = default!, Token = "" };
         }
@@ -67,7 +74,9 @@ public class AuthService(UserManager<AppUser> userManager,
             Email = registrationRequestDTO.Email,
             NormalizedEmail = registrationRequestDTO.Email.ToUpper(),
             NormalizedUserName = registrationRequestDTO.UserName.ToUpper(),
-            FullName = registrationRequestDTO.FullName
+            FullName = registrationRequestDTO.FullName,
+            Address = registrationRequestDTO.Address,
+            DateOfBirth = registrationRequestDTO.DateOfBirth
         };
 
         try

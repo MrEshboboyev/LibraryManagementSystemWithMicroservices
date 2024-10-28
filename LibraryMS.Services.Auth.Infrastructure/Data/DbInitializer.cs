@@ -39,7 +39,9 @@ public class DbInitializer(UserManager<AppUser> userManager,
                     Email = "admin@example.com",
                     EmailConfirmed = true,
                     NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                    NormalizedEmail = "ADMIN@EXAMPLE.COM"
+                    NormalizedEmail = "ADMIN@EXAMPLE.COM",
+                    Address = "USA, NYC",
+                    DateOfBirth = new DateTime(1999, 11, 11)
                 };
 
                 await _userManager.CreateAsync(adminForDb, "Admin*123");
