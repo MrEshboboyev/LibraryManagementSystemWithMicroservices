@@ -33,6 +33,8 @@ public static class JwtConfig
         {
             options.TokenValidationParameters = tokenValidationParameters;
         });
+
+        services.AddAuthorization();
     }
 }
 

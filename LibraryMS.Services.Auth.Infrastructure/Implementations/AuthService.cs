@@ -31,6 +31,9 @@ public class AuthService(UserManager<AppUser> userManager,
         // Fetching user from the database
         var userFromDb = await _userManager.FindByNameAsync(loginRequestDTO.UserName);
 
+        if (userFromDb == null)
+            return new LoginResponseDTO() { User = default!, Token = "" };
+
         var signInResult = await _signInManager.PasswordSignInAsync(userFromDb,
             loginRequestDTO.Password,
             isPersistent: false,

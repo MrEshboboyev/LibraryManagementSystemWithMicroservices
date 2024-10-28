@@ -1,7 +1,6 @@
 ﻿using LibraryMS.Services.Auth.Application.DTOs;
 using LibraryMS.Services.Auth.Application.Services;
 using LibraryMS.Services.Auth.Domain.Entities;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -63,7 +62,9 @@ public class AuthAPIController(IAuthService authService,
             Email = user.Email
         };
 
-        return Ok(profileDto);
+        _response.Result = profileDto;
+
+        return Ok(_response);
     }
 
     [HttpPut("profile")]

@@ -14,13 +14,16 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDatabaseConfiguration(connectionString);
 
 // add JwtOptions configuring
-builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtSettings"));
 
 // configure identity
 builder.Services.AddIdentityConfiguration();
 
 // configure lifetime for services
 builder.Services.AddApplicationServices();
+
+// configure JWT
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 // configure swagger for JWT
 builder.Services.AddSwaggerConfiguration();
@@ -38,6 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

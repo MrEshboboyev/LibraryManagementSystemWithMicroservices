@@ -32,5 +32,27 @@ public class AuthService(IBaseService baseService) : IAuthService
 
         return await _baseService.SendAsync(requestDTO, withBearer: false);
     }
+
+    public async Task<ResponseDTO?> GetProfileAsync()
+    {
+        RequestDTO requestDTO = new()
+        {
+            Url = SD.AuthAPIBase + "/api/auth/profile",
+            Data = default!
+        };
+
+        return await _baseService.SendAsync(requestDTO, withBearer: true);
+    }
+    public async Task<ResponseDTO?> UpdateProfileAsync(UserProfileDTO userProfileDTO)
+    {
+        RequestDTO requestDTO = new()
+        {
+            ApiType = ApiType.PUT,
+            Url = SD.AuthAPIBase + "/api/auth/profile",
+            Data = userProfileDTO
+        };
+
+        return await _baseService.SendAsync(requestDTO, withBearer: true);
+    }
 }
 
