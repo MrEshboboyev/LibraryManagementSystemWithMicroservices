@@ -78,6 +78,7 @@ public class AuthAPIController(IAuthService authService,
         user.FullName = profileDto.FullName;
         user.Address = profileDto.Address;
         user.DateOfBirth = profileDto.DateOfBirth;
+        user.Email = profileDto.Email;
 
         var result = await _userManager.UpdateAsync(user);
         if (!result.Succeeded)

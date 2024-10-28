@@ -31,8 +31,6 @@ public class AuthService(UserManager<AppUser> userManager,
         // Fetching user from the database
         var userFromDb = await _userManager.FindByNameAsync(loginRequestDTO.UserName);
 
-        bool isValid = await _userManager.CheckPasswordAsync(userFromDb, loginRequestDTO.Password);
-
         var signInResult = await _signInManager.PasswordSignInAsync(userFromDb,
             loginRequestDTO.Password,
             isPersistent: false,
@@ -112,6 +110,5 @@ public class AuthService(UserManager<AppUser> userManager,
         {
             return ex.Message;
         }
-        return "Error encountered";
     }
 }
