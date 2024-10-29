@@ -8,5 +8,5 @@ public class MemberDTO
     public DateTime JoinDate { get; set; }
     public DateTime? ExpirationDate { get; set; }
     public bool IsActive { get; set; }
-    public required MembershipTypeDTO MembershipTypeDTO { get; set; } 
+    public MembershipTypeDTO? MembershipTypeDTO { get; set; } 
 }

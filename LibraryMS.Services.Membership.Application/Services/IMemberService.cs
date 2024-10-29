@@ -13,6 +13,9 @@ public interface IMemberService
     // Adds a new member to the system
     Task<MemberDTO> AddMemberAsync(MemberDTO memberDTO);
 
+    // Create Default membership
+    Task<bool> CreateDefaultMembershipAsync(string userId);
+
     // Updates the information of an existing member
     Task<bool> UpdateMemberAsync(MemberDTO memberDTO);
 

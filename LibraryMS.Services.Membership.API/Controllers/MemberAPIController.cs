@@ -130,5 +130,25 @@ public class MemberAPIController(IMemberService memberService) : ControllerBase
 
         return _response;
     }
+
+    // POST
+    // /api/members/create-default/{userId}
+    // Create default member for userId
+    [HttpGet("create-default/{userId:string}")]
+    public async Task<ResponseDTO> CreateDefault(string userId)
+    {
+        try
+        {
+            var result = await _memberService.CreateDefaultMembershipAsync(userId);
+            _response.Result = result;
+        }
+        catch (Exception ex)
+        {
+            _response.IsSuccess = false;
+            _response.Message = ex.Message;
+        }
+
+        return _response;
+    }
 }
 

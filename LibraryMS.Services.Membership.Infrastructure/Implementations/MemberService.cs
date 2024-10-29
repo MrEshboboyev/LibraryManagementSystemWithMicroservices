@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LibraryMS.Services.Membership.Application.Common.Interfaces;
+using LibraryMS.Services.Membership.Application.Common.Utility;
 using LibraryMS.Services.Membership.Application.DTOs;
 using LibraryMS.Services.Membership.Application.Services;
 using LibraryMS.Services.Membership.Domain.Entities;
@@ -44,6 +45,28 @@ public class MemberService(IUnitOfWork unitOfWork, IMapper mapper) :
         _mapper.Map(memberForDb, memberDTO);
 
         return memberDTO;
+    }
+
+    // Create Default membership
+    public async Task<bool> CreateDefaultMembershipAsync(string userId)
+    {
+        var defaultMembershipType = await _unitOfWork.MembershipType.GetAsync(
+            mt => mt.Name == SD.MembershipTypeTrial
+            ) ?? throw new Exception("Trial membership type not found!");
+
+        Member memberForDb = new()
+        { 
+            AppUserId = userId,
+            MembershipTypeId = defaultMembershipType.Id,
+            JoinDate = DateTime.Now,
+            IsActive = true,
+            ExpirationDate = DateTime.Now.AddDays(SD.expirationDays)
+        };
+
+        await _unitOfWork.Member.AddAsync(memberForDb);
+        await _unitOfWork.SaveAsync();
+
+        return true;
     }
 
     // Updates the information of an existing member
