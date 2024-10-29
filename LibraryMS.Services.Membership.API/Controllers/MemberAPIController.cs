@@ -134,7 +134,7 @@ public class MemberAPIController(IMemberService memberService) : ControllerBase
     // POST
     // /api/members/create-default/{userId}
     // Create default member for userId
-    [HttpGet("create-default/{userId:string}")]
+    [HttpGet("create-default/{userId}")]
     public async Task<ResponseDTO> CreateDefault(string userId)
     {
         try
@@ -151,4 +151,3 @@ public class MemberAPIController(IMemberService memberService) : ControllerBase
         return _response;
     }
 }
-

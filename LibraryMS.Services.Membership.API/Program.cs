@@ -1,5 +1,6 @@
 using LibraryMS.Services.Membership.Application.Mappings;
 using LibraryMS.Services.Membership.Infrastructure.Configurations;
+using LibraryMS.Services.Membership.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,5 +36,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+await app.SeedDatabaseAsync();
 app.Run();
