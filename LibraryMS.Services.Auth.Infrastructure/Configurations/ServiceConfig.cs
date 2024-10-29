@@ -3,6 +3,8 @@ using LibraryMS.Services.Auth.Application.Services;
 using LibraryMS.Services.Auth.Infrastructure.Implementations;
 using LibraryMS.Services.Auth.Application.Common.Interfaces;
 using LibraryMS.Services.Auth.Infrastructure.Data;
+using LibraryMS.Services.Auth.Application.Common.Interfaces.External;
+using LibraryMS.Services.Auth.Infrastructure.ExternalClients;
 
 namespace LibraryMS.Services.Auth.Infrastructure.Configurations;
 
@@ -14,6 +16,7 @@ public static class ServiceConfig
         services.AddScoped<IDbInitializer, DbInitializer>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddScoped<IMembershipServiceClient, MembershipServiceClient>();
         //services.AddScoped<IUnitOfWork, UnitOfWork>();
         //services.AddScoped<IUserProfileService, UserProfileService>();
         //services.AddScoped<INotificationService, NotificationService>();

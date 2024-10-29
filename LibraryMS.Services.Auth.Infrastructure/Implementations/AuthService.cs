@@ -1,4 +1,5 @@
-﻿using LibraryMS.Services.Auth.Application.Common.Utility;
+﻿using LibraryMS.Services.Auth.Application.Common.Interfaces.External;
+using LibraryMS.Services.Auth.Application.Common.Utility;
 using LibraryMS.Services.Auth.Application.DTOs;
 using LibraryMS.Services.Auth.Application.Services;
 using LibraryMS.Services.Auth.Domain.Entities;
@@ -8,11 +9,13 @@ namespace LibraryMS.Services.Auth.Infrastructure.Implementations;
 
 public class AuthService(UserManager<AppUser> userManager,
         IJwtTokenGenerator jwtTokenGenerator,
-        SignInManager<AppUser> signInManager) : IAuthService
+        SignInManager<AppUser> signInManager,
+        IMembershipServiceClient membershipServiceClient) : IAuthService
 {
     private readonly UserManager<AppUser> _userManager = userManager;
     private readonly SignInManager<AppUser> _signInManager = signInManager;
     private readonly IJwtTokenGenerator _jwtTokenGenerator = jwtTokenGenerator;
+    private readonly IMembershipServiceClient _membershipServiceClient = membershipServiceClient;
 
     public async Task<bool> AssignRoleAsync(string email)
     {
@@ -101,6 +104,13 @@ public class AuthService(UserManager<AppUser> userManager,
                     Email = userToReturn.Email!,
                     Id = userToReturn.Id
                 };
+
+                // Call Membership Microservice to create a default membership
+                var membershipCreationResult = await _membershipServiceClient.CreateDefaultMembershipAsync(user.Id);
+                if (!membershipCreationResult)
+                {
+                    return "Failed to create default membership!";
+                }
 
                 return "";
             }

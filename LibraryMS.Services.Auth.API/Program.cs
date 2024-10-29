@@ -1,6 +1,8 @@
+using LibraryMS.Services.Auth.Application.Common.Interfaces.External;
 using LibraryMS.Services.Auth.Application.Common.Models;
 using LibraryMS.Services.Auth.Application.Mappings;
 using LibraryMS.Services.Auth.Infrastructure.Configurations;
+using LibraryMS.Services.Auth.Infrastructure.ExternalClients;
 using LibraryMS.Services.Auth.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +23,9 @@ builder.Services.AddIdentityConfiguration();
 
 // configure lifetime for services
 builder.Services.AddApplicationServices();
+
+// Register external services
+builder.Services.AddExternalServices(builder.Configuration);
 
 // configure JWT
 builder.Services.AddJwtAuthentication(builder.Configuration);

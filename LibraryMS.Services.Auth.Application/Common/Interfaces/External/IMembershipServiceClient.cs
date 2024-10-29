@@ -2,5 +2,5 @@
 
 public interface IMembershipServiceClient
 {
-    Task<bool> CreateDefaultMembershipAsync(Guid userId);
+    Task<bool> CreateDefaultMembershipAsync(string userId);
 }

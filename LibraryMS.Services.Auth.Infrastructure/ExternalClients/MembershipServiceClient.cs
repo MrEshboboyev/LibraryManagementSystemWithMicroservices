@@ -7,10 +7,9 @@ public class MembershipServiceClient(HttpClient httpClient) : IMembershipService
 {
     private readonly HttpClient _httpClient = httpClient;
 
-    public async Task<bool> CreateDefaultMembershipAsync(Guid userId)
+    public async Task<bool> CreateDefaultMembershipAsync(string userId)
     {
-        var response = await _httpClient.PostAsJsonAsync<bool>($"/api/memberships/create-default/{userId}", default);
+        var response = await _httpClient.PostAsJsonAsync<bool>($"/api/members/create-default/{userId}", default);
         return response.IsSuccessStatusCode;
     }
 }
-
