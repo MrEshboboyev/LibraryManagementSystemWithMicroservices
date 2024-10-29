@@ -12,7 +12,6 @@ public static class ServiceConfig
     {
         // adding lifetimes
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<ILoanHistoryService, LoanHistoryService>();
         services.AddScoped<IMemberService, MemberService>();
         services.AddScoped<IMembershipTypeService, MembershipTypeService>();
 

@@ -9,5 +9,4 @@ public class MemberDTO
     public DateTime? ExpirationDate { get; set; }
     public bool IsActive { get; set; }
     public required MembershipTypeDTO MembershipTypeDTO { get; set; } 
-    public ICollection<LoanHistoryDTO> LoanHistoryDTOs { get; set; } = [];
 }

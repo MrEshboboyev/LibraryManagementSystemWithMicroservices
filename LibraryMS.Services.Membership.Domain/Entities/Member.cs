@@ -16,7 +16,5 @@ public class Member
     public bool IsActive { get; set; }
 
     public required MembershipType MembershipType { get; set; } // Navigation property
-    // Navigation to loan history
-    public ICollection<LoanHistory> LoanHistories { get; set; } = [];
 }
 

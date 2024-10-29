@@ -6,11 +6,9 @@ namespace LibraryMS.Services.Membership.API.Controllers;
 
 [Route("api/members")]
 [ApiController]
-public class MemberAPIController(IMemberService memberService,
-    ILoanHistoryService loanHistoryService) : ControllerBase
+public class MemberAPIController(IMemberService memberService) : ControllerBase
 {
     private readonly IMemberService _memberService = memberService;
-    private readonly ILoanHistoryService _loanHistoryService = loanHistoryService;
     private ResponseDTO _response = new();
 
     // POST
@@ -122,26 +120,6 @@ public class MemberAPIController(IMemberService memberService,
         try
         {
             var result = await _memberService.IsMemberActiveAsync(id);
-            _response.Result = result;
-        }
-        catch (Exception ex)
-        {
-            _response.IsSuccess = false;
-            _response.Message = ex.Message;
-        }
-
-        return _response;
-    }
-
-    // GET
-    // /api/members/{id}/loans
-    // Get a member’s loan history
-    [HttpGet("{id:guid}/loans")]
-    public async Task<ResponseDTO> GetLoans(Guid id)
-    {
-        try
-        {
-            var result = await _loanHistoryService.GetLoanHistoryByIdAsync(id);
             _response.Result = result;
         }
         catch (Exception ex)

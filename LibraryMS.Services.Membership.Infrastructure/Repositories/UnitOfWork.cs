@@ -9,7 +9,6 @@ namespace LibraryMS.Services.Membership.Infrastructure.Repositories
 
         public IMemberRepository Member { get; private set; } = new MemberRepository(db);
         public IMembershipTypeRepository MembershipType { get; private set; } = new MembershipTypeRepository(db);
-        public ILoanHistoryRepository LoanHistory { get; private set; } = new LoanHistoryRepository(db);
 
         public async Task SaveAsync()
         {
