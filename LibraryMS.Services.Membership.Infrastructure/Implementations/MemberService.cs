@@ -13,7 +13,7 @@ public class MemberService(IUnitOfWork unitOfWork, IMapper mapper) :
     public async Task<IEnumerable<MemberDTO>> GetAllMembersAsync()
     {
         var allMembers = await _unitOfWork.Member.GetAllAsync(
-            includeProperties: "MembershipType,LoanHistories");
+            includeProperties: "MembershipType");
 
         var mappedMembers = _mapper.Map<IEnumerable<MemberDTO>>(allMembers);
 
@@ -25,7 +25,20 @@ public class MemberService(IUnitOfWork unitOfWork, IMapper mapper) :
     {
         var member = await _unitOfWork.Member.GetAsync(
             filter: m => m.Id == memberId,
-            includeProperties: "MembershipType,LoanHistories")
+            includeProperties: "MembershipType")
+            ?? throw new Exception("Member not found!");
+
+        var mappedMember = _mapper.Map<MemberDTO>(member);
+
+        return mappedMember;
+    }
+
+    // Retrieves a member by app user ID
+    public async Task<MemberDTO?> GetMemberByAppUserIdAsync(string appUserId)
+    {
+        var member = await _unitOfWork.Member.GetAsync(
+            filter: m => m.AppUserId == appUserId,
+            includeProperties: "MembershipType")
             ?? throw new Exception("Member not found!");
 
         var mappedMember = _mapper.Map<MemberDTO>(member);

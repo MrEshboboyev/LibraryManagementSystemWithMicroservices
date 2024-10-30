@@ -1,6 +1,7 @@
 ﻿using LibraryMS.Services.Membership.Application.DTOs;
 using LibraryMS.Services.Membership.Application.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LibraryMS.Services.Membership.API.Controllers;
 
@@ -70,6 +71,28 @@ public class MemberAPIController(IMemberService memberService) : ControllerBase
 
         return _response;
     }
+
+    // GET
+    // /api/members/by-user
+    // Get a specific member by AppUserId
+    [HttpGet("by-user")]
+    public async Task<ResponseDTO> GetByAppUserId()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        try
+        {
+            var result = await _memberService.GetMemberByAppUserIdAsync(userId);
+            _response.Result = result;
+        }
+        catch (Exception ex)
+        {
+            _response.IsSuccess = false;
+            _response.Message = ex.Message;
+        }
+
+        return _response;
+    }
+
 
     // PUT
     // /api/members/{id}

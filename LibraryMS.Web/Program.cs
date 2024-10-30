@@ -13,11 +13,13 @@ builder.Services.AddHttpClient();
 
 // service http clients
 builder.Services.AddHttpClient<IAuthService, AuthService>();
+builder.Services.AddHttpClient<IMembershipService, MembershipService>();
 
 // service lifetime added
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<ITokenProvider, TokenProvider>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IMembershipService, MembershipService>();
 
 // URLs initialized
 SD.AuthAPIBase = builder.Configuration["ServiceUrls:AuthAPI"];

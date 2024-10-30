@@ -10,6 +10,9 @@ public interface IMemberService
     // Retrieves a member by their unique ID
     Task<MemberDTO?> GetMemberByIdAsync(Guid memberId);
 
+    // Retrieves a member by app user ID
+    Task<MemberDTO?> GetMemberByAppUserIdAsync(string appUserId);
+
     // Adds a new member to the system
     Task<MemberDTO> AddMemberAsync(MemberDTO memberDTO);
 

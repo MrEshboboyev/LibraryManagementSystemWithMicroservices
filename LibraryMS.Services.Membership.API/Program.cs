@@ -1,3 +1,4 @@
+using LibraryMS.Services.Membership.Application.Common.Models;
 using LibraryMS.Services.Membership.Application.Mappings;
 using LibraryMS.Services.Membership.Infrastructure.Configurations;
 using LibraryMS.Services.Membership.Infrastructure.Services;
@@ -12,8 +13,14 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
     ?? "defaultPostgresConnection";
 builder.Services.AddDatabaseConfiguration(connectionString);
 
+// add JwtOptions configuring
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtSettings"));
+
 // configure lifetime for services
 builder.Services.AddApplicationServices();
+
+// configure JWT
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 // configure swagger for JWT
 builder.Services.AddSwaggerConfiguration();
@@ -33,6 +40,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

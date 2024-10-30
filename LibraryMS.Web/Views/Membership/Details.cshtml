@@ -1,0 +1,84 @@
+﻿@model LibraryMS.Web.DTOs.MemberDTO
+
+@{
+    ViewData["Title"] = "My Membership";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>Membership Details</h3>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center">@Model.MembershipTypeDTO.Name Membership</h5>
+                    <p class="text-muted text-center">Enjoy exclusive benefits with your @Model.MembershipTypeDTO.Name membership!</p>
+
+                    <div class="d-flex justify-content-between">
+                        <p><strong>Status:</strong></p>
+                        <p class="text-muted">@(Model.IsActive ? "Active" : "Inactive")</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p><strong>Join Date:</strong></p>
+                        <p class="text-muted">@Model.JoinDate.ToString("MMMM dd, yyyy")</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p><strong>Expiration Date:</strong></p>
+                        <p class="text-muted">@Model.ExpirationDate?.ToString("MMMM dd, yyyy")</p>
+                    </div>
+
+                    <!-- Upgrade or Renew Buttons -->
+                    <div class="text-center mt-4">
+                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#upgradeModal">Upgrade Membership</button>
+                        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#renewModal">Renew Membership</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Upgrade Modal -->
+<div class="modal fade" id="upgradeModal" tabindex="-1" aria-labelledby="upgradeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="upgradeModalLabel">Upgrade Membership</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Select a premium membership plan to enjoy more benefits!</p>
+                <!-- Future options for upgrades can be added here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Confirm Upgrade</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Renew Modal -->
+<div class="modal fade" id="renewModal" tabindex="-1" aria-labelledby="renewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="renewModalLabel">Renew Membership</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Renew your membership to continue enjoying benefits without interruption.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Confirm Renewal</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap and JavaScript Libraries -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
