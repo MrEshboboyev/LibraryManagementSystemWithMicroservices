@@ -13,9 +13,6 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
     ?? "defaultPostgresConnection";
 builder.Services.AddDatabaseConfiguration(connectionString);
 
-// add JwtOptions configuring
-builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtSettings"));
-
 // configure lifetime for services
 builder.Services.AddApplicationServices();
 

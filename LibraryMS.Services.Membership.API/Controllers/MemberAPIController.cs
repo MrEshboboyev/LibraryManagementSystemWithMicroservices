@@ -1,5 +1,6 @@
 ﻿using LibraryMS.Services.Membership.Application.DTOs;
 using LibraryMS.Services.Membership.Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -75,6 +76,7 @@ public class MemberAPIController(IMemberService memberService) : ControllerBase
     // GET
     // /api/members/by-user
     // Get a specific member by AppUserId
+    [Authorize]
     [HttpGet("by-user")]
     public async Task<ResponseDTO> GetByAppUserId()
     {
